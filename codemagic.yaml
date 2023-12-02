@@ -18,6 +18,7 @@ workflows:
           npm install
       - name: Setup iOS
         script: |
+          cd template_src
           cordova platform remove ios
           cordova platform add ios
       - name: Set up code signing settings on Xcode project
@@ -47,11 +48,21 @@ workflows:
           cordova requirements
       - name: Build iOS 2
         script: |
-          cordova build ios --release --device --buildConfig='../build.json' --here
+          cd template_src
           cordova build ios --release --emulator
+      - name: Build iOS 2.1
+        script: |
+          cd template_src
+          cordova build ios --release --device --buildConfig='../build.json' || true
+          cd platforms/ios/HelloCordova.xcarchive/Products/
+          mv Applications Payload
+          zip -r HelloCordova-unsigned.zip Payload
+          mv HelloCordova-unsigned.zip HelloCordova.ipa
+          mkdir -p ../../build/Release-iphoneos/
+          mv HelloCordova.ipa ../../build/Release-iphoneos/
     artifacts:
-      - platforms/ios/build/device/*.ipa
-      - platforms/ios/build/**/*.app
+      - tempate_src/platforms/ios/build/Release-iphoneos/*.ipa
+      - tempate_src/platforms/ios/build/**/*.app
       - /tmp/xcodebuild_logs/*.log           
 
 
