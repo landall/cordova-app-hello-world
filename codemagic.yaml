@@ -4,7 +4,7 @@ workflows:
     environment:
       ios_signing:
         distribution_type: development
-        bundle_identifier: helloworld.com.theseaing.lab
+        bundle_identifier: com.theseaing.lab
       xcode: latest # <-- set to specific version e.g. 14.3, 15.0 to avoid unexpected updates.
       #node: v16.11.1
     cache:
