@@ -61,8 +61,8 @@ workflows:
           mkdir -p ../../build/Release-iphoneos/
           mv HelloCordova.ipa ../../build/Release-iphoneos/
     artifacts:
-      - tempate_src/platforms/ios/build/Release-iphoneos/*.ipa
-      - tempate_src/platforms/ios/build/**/*.app
+      - template_src/platforms/ios/build/Release-iphoneos/*.ipa
+      - template_src/platforms/ios/build/**/*.app
       - /tmp/xcodebuild_logs/*.log           
 
 
