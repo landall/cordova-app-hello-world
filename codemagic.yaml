@@ -45,10 +45,10 @@ workflows:
                 }
               }
           EOF
-          cordova requirements
       - name: Build iOS 2
         script: |
           cd template_src
+          cordova requirements
           cordova build ios --release --emulator
       - name: Build iOS 2.1
         script: |
