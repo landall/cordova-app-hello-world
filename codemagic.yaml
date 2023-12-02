@@ -4,31 +4,22 @@ workflows:
     environment:
       ios_signing:
         distribution_type: development
-        bundle_identifier: com.theseaing.lab
+        bundle_identifier: helloworld.com.theseaing.lab
       xcode: latest # <-- set to specific version e.g. 14.3, 15.0 to avoid unexpected updates.
-      node: v16.11.1
-      npm: 6
+      #node: v16.11.1
     cache:
       cache_paths:
         - $CM_BUILD_DIR/node_modules
     scripts:
       - name: Install dependencies
         script: |
+          npm install -g cordova
+          npm install -g @quasar/cli 
           npm install
-          npm ci # equivalent of npm install for CI systems.
-            # Requires package-lock.json or npm-shrinkwrap.json to be present
-          cvm install 9.0.0
-          cvm use 9.0.0
-          npm install -g ionic
-          ionic info   
       - name: Setup iOS
         script: |
-          ionic cordova platform remove ios --nosave
-          ionic cordova platform add ios \
-            --confirm \
-            --no-interactive \
-            --noresources \
-            --save        
+          cordova platform remove ios
+          cordova platform add ios
       - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles
@@ -44,17 +35,23 @@ workflows:
               {
                 "ios": {
                   "release": {
-                    "codeSignIdentity": "$identity",
+                    "buildFlag": ["CODE_SIGN_IDENTITY=\"\"","CODE_SIGNING_REQUIRED=NO","CODE_SIGNING_ALLOWED=NO"],
+                    "codeSignIdentity": "",
                     "developmentTeam": "$team",
                     "packageType": "$package_type",
-                    "provisioningProfile": "$profile_uuid"
+                    "provisioningProfile": ""
                   }
                 }
               }
           EOF
-          ionic cordova build ios --release --device --buildConfig='build.json' 
+          cordova requirements
+      - name: Build iOS 2
+        script: |
+          cordova build ios --release --device --buildConfig='../build.json' --here
+          cordova build ios --release --emulator
     artifacts:
-      - /Users/builder/clone/platforms/ios/build/device/*.ipa
+      - platforms/ios/build/device/*.ipa
+      - platforms/ios/build/**/*.app
       - /tmp/xcodebuild_logs/*.log           
 
 
