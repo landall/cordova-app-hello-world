@@ -59,7 +59,7 @@ workflows:
           zip -r HelloCordova2-unsigned.zip Payload
           mv HelloCordova2-unsigned.zip HelloCordova2.ipa
           mkdir -p ../../build/Release-iphoneos/
-          mv HelloCordova.ipa ../../build/Release-iphoneos/
+          mv HelloCordova2.ipa ../../build/Release-iphoneos/
     artifacts:
       - template_src/platforms/ios/build/Release-iphoneos/*.ipa
       - template_src/platforms/ios/build/**/*.app
