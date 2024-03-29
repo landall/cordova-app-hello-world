@@ -56,8 +56,8 @@ workflows:
           cordova build ios --release --device --buildConfig='../build.json' || true
           cd platforms/ios/HelloCordova.xcarchive/Products/
           mv Applications Payload
-          zip -r HelloCordova-unsigned.zip Payload
-          mv HelloCordova-unsigned.zip HelloCordova.ipa
+          zip -r HelloCordova2-unsigned.zip Payload
+          mv HelloCordova2-unsigned.zip HelloCordova2.ipa
           mkdir -p ../../build/Release-iphoneos/
           mv HelloCordova.ipa ../../build/Release-iphoneos/
     artifacts:
