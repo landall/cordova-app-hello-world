@@ -16,6 +16,7 @@ workflows:
           npm install -g cordova
           npm install -g @quasar/cli 
           npm install
+          rvm use system
       - name: Setup iOS
         script: |
           cd template_src
